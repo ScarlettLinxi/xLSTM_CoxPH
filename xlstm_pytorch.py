@@ -56,7 +56,7 @@ def _make_riskset(time: torch.Tensor) -> torch.Tensor:
     return risk_set
 
 
-def my_collate_fn(batch):
+def batch_riskset(batch):
     batch_images, batch_time, batch_event = zip(*batch)
 
     # Convert batch data to tensors
@@ -127,7 +127,7 @@ class InputFunction(Dataset):
     
     def get_dataloader(self):
         """Returns a DataLoader for the dataset."""
-        return DataLoader(self, batch_size=self.batch_size, collate_fn=my_collate_fn, shuffle=self.shuffle, drop_last=self.drop_last)
+        return DataLoader(self, batch_size=self.batch_size, collate_fn=batch_riskset, shuffle=self.shuffle, drop_last=self.drop_last)
 
 
 def safe_normalize(x: torch.Tensor) -> torch.Tensor:
